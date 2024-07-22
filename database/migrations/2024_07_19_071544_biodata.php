@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('biodatas',function (Blueprint $table) {
             $table->id();
-            $table->integer('nik');
+            $table->bigInteger('nik');
             $table->string('nama');
             $table->string('temp_lahir');
             $table->string('tgl_lahir');

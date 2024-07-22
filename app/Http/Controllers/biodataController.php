@@ -8,12 +8,19 @@ use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
 
 use App\Models\Biodata;
+use Carbon\Carbon;
 
 class biodataController extends Controller
 {
     public function index()
     {
         return view('biodata.form');
+    }
+
+    public function show($id)
+    {
+        $biodata = Biodata::find($id);
+        return view('biodata.show', ['biodata' => $biodata]);
     }
 
     public function inputdata(Request $request)
@@ -28,22 +35,27 @@ class biodataController extends Controller
             'desa' => 'required|string',
             'provinsi' => 'required|string',
             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif',
-        
+
         ]);
 
-            $nik =  $validatedData['nik'];
-            $nama =  $validatedData['nama'];
-            $temp_lahir =  $validatedData['temp_lahir'];
-            $tgl_lahir =  $validatedData['tgl_lahir'];
-            $kabupaten =  $validatedData['kabupaten'];
-            $kecamatan =  $validatedData['kecamatan'];
-            $desa =  $validatedData['desa'];
-            $provinsi =  $validatedData['provinsi'];
-            $gambar = $validatedData['gambar'];
-            
-            $nama_gambar = $gambar->getClientOriginalName();
+        $now = Carbon::now()->format('d-m-y');
 
-            Biodata::create([
+        $nik =  $validatedData['nik'];
+        $nama =  $validatedData['nama'];
+        $temp_lahir =  $validatedData['temp_lahir'];
+        $tgl_lahir =  $validatedData['tgl_lahir'];
+        $kabupaten =  $validatedData['kabupaten'];
+        $kecamatan =  $validatedData['kecamatan'];
+        $desa =  $validatedData['desa'];
+        $provinsi =  $validatedData['provinsi'];
+        $gambar = $validatedData['gambar'];
+
+        $nama_gambar = $gambar->getClientOriginalName();
+        $gambar_path = "images/" . $now;
+
+        // Storage::disk('public')->put("images/" . $now .'/'. $nama_gambar, $request->gambar);
+        Storage::disk('public')->putFileAs($gambar_path, $request->gambar, $nama_gambar);
+        Biodata::create([
             'nik' => $validatedData['nik'],
             'nama' => $validatedData['nama'],
             'temp_lahir' => $validatedData['temp_lahir'],
@@ -52,12 +64,9 @@ class biodataController extends Controller
             'kecamatan' => $validatedData['kecamatan'],
             'desa' => $validatedData['desa'],
             'provinsi' => $validatedData['provinsi'],
-            'gambar' => $nama_gambar,
-            ]);
-                
-            Storage::disk('local')->put('images/'.$nama_gambar, 'Contens');
-                
-            return view('biodata.result', compact('nik','nama','temp_lahir','tgl_lahir','kabupaten', 'kecamatan','desa', 'provinsi','nama_gambar'));
+            'gambar' => $gambar_path . '/' . $nama_gambar,
+        ]);
+
+        return view('biodata.result', compact('nik', 'nama', 'temp_lahir', 'tgl_lahir', 'kabupaten', 'kecamatan', 'desa', 'provinsi', 'nama_gambar'));
     }
 }
-
