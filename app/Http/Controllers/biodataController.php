@@ -19,8 +19,14 @@ class biodataController extends Controller
 
     public function show($id)
     {
-        $biodata = Biodata::find($id);
+        $biodata = Biodata::findOrfail($id);
         return view('biodata.show', ['biodata' => $biodata]);
+    }
+
+    public function edit($id)
+    {
+        $biodata = Biodata::findOrFail($id);
+        return view('biodata.edit', ['biodata' => $biodata]);
     }
 
     public function inputdata(Request $request)
