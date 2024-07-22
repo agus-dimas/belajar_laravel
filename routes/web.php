@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+use App\Http\Controllers\biodataController;
+
+Route::get('/biodata', [biodataController::class, 'index']);
+Route::post('/biodata/result', [biodataController::class, 'inputdata']);
