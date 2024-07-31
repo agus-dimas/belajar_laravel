@@ -13,9 +13,15 @@ use Carbon\Carbon;
 class biodataController extends Controller
 {
     public function index()
-    {
-        return view('biodata.anggota');
+    {   
+        $biodata = Biodata::all();
+        return view('biodata.anggota', compact('biodata'));
     }
+    public function create()
+    {
+        return view('biodata.form');
+    }
+
 
     public function show($id)
     {
