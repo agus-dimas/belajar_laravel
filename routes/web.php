@@ -10,9 +10,4 @@ Route::get('/biodata/{id}', [biodataController::class, 'show']);
 Route::get('/biodata/{id}/edit', [biodataController::class, 'edit']);
 Route::post('/biodata/result', [biodataController::class, 'inputdata']);
 
-// Route::get('/anggota', [biodataController::class, 'index']);
-// membuat landing page atau menu utama pada /anggota yang menjadi index
-
-
-
 Route::resource('contohs', ContohController::class);

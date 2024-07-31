@@ -15,6 +15,7 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
+                    <th>No.</th>
                     <th>NIK</th>
                     <th>Nama</th>
                     <th>Tempat Lahir</th>
@@ -27,8 +28,12 @@
                 </tr>
             </thead>
             <tbody>
+                @php
+                    $no = 1;
+                @endphp
                 @foreach($biodata as $biodata)
                     <tr>
+                        <td>{{ $no++ }}</td>
                         <td>{{ $biodata->nik }}</td>
                         <td>{{ $biodata->nama }}</td>
                         <td>{{ $biodata->temp_lahir }}</td>
