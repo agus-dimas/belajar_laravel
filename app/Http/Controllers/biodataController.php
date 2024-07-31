@@ -14,7 +14,7 @@ class biodataController extends Controller
 {
     public function index()
     {
-        return view('biodata.form');
+        return view('biodata.anggota');
     }
 
     public function show($id)
