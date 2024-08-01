@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Hasil Biodata</title>
+    <title>Data Anggota</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .fade-in {
-            animation: fadeInAnimation ease 3s;
+            animation: fadeInAnimation ease 2s;
             animation-iteration-count: 1;
             animation-fill-mode: forwards;
         }
@@ -18,38 +18,65 @@
                 opacity: 1;
             }
         }
-
-        .slide-in {
-            animation: slideInAnimation ease 3s;
-            animation-iteration-count: 1;
-            animation-fill-mode: forwards;
+        .card {
+            border-radius: 15px;
         }
 
-        @keyframes slideInAnimation {
-            0% {
-                transform: translateY(-100%);
-            }
-            100% {
-                transform: translateY(0);
-            }
+        .img-fluid {
+            max-width: 100%;
+            height: auto;
+            display: block;
         }
     </style>
 </head>
 <body class="bg-light">
     <div class="container mt-5">
-        <div class="card fade-in shadow">
+        <div class="card fade-in shadow-lg">
             <div class="card-body">
-                <h1 class="card-title text-center mb-4">Hasil Biodata</h1>
-                <p><strong>NIK:</strong> {{ $nik }}</p>
-                <p><strong>Nama:</strong> {{ $nama }}</p>
-                <p><strong>Tempat Lahir:</strong> {{ $temp_lahir }}</p>
-                <p><strong>Tanggal Lahir:</strong> {{ $tgl_lahir }}</p>
-                <p><strong>Kabupaten:</strong> {{ $kabupaten }}</p>
-                <p><strong>Kecamatan:</strong> {{ $kecamatan }}</p>
-                <p><strong>Desa:</strong> {{ $desa }}</p>
-                <p><strong>Provinsi:</strong> {{ $provinsi }}</p>
+                <h1 class="card-title text-center mb-4">Data Anggota</h1>
+                <div class="row">
+                    <div class="col-md-4 text-center">
+                    <img class="img-fluid rounded" src="/storage/{{ $gambar_path }}/{{ $nama_gambar }}" alt="{{ $nama_gambar }}" />
+                    </div>
+                    <div class="col-md-8">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>NIK</th>
+                                <td>{{ $nik }}</td>
+                            </tr>
+                            <tr>
+                                <th>Nama</th>
+                                <td>{{ $nama }}</td>
+                            </tr>
+                            <tr>
+                                <th>Tempat Lahir</th>
+                                <td>{{ $temp_lahir }}</td>
+                            </tr>
+                            <tr>
+                                <th>Tanggal Lahir</th>
+                                <td>{{ $tgl_lahir }}</td>
+                            </tr>
+                            <tr>
+                                <th>Kabupaten</th>
+                                <td>{{ $kabupaten }}</td>
+                            </tr>
+                            <tr>
+                                <th>Kecamatan</th>
+                                <td>{{ $kecamatan }}</td>
+                            </tr>
+                            <tr>
+                                <th>Desa</th>
+                                <td>{{ $desa }}</td>
+                            </tr>
+                            <tr>
+                                <th>Provinsi</th>
+                                <td>{{ $provinsi }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
                 <div class="text-center mt-4">
-                    <img class="slide-in img-fluid rounded" src="{{ asset('storage/images/'.$nama_gambar) }}" alt="{{ $nama_gambar }}" />
+                    <a href="/biodatum" class="btn btn-danger">Kembali</a>
                 </div>
             </div>
         </div>

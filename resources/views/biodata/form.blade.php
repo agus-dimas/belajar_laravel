@@ -30,7 +30,7 @@
         @endif
 
         <h1 class="mt-5">INPUT BIODATA</h1>
-        <form action="/biodata/result" method="POST" enctype="multipart/form-data">
+        <form action="/biodatum/result" method="POST" enctype="multipart/form-data">
        
             @csrf
             <div class="form-group">
@@ -99,6 +99,7 @@
             
             </div>
             <button type="submit" class="btn btn-primary">Simpan</button>
+            <a href="/biodatum" class="btn btn-danger white">Batal</a>
         </form>
     </div>
     

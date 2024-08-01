@@ -15,7 +15,7 @@ class biodataController extends Controller
     public function index()
     {   
         $biodata = Biodata::all();
-        return view('biodata.anggota', compact('biodata'));
+        return view('biodata.anggota', compact ('biodata'));
     }
     public function create()
     {
@@ -25,7 +25,7 @@ class biodataController extends Controller
 
     public function show($id)
     {
-        $biodata = Biodata::findOrfail($id);
+        $biodata = Biodata::findOrFail($id);
         return view('biodata.show', ['biodata' => $biodata]);
     }
 
@@ -33,6 +33,47 @@ class biodataController extends Controller
     {
         $biodata = Biodata::findOrFail($id);
         return view('biodata.edit', ['biodata' => $biodata]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'nik' => 'required|integer',
+            'nama' => 'required|string',
+            'temp_lahir' => 'required|string',
+            'tgl_lahir' => 'required|string',
+            'kabupaten' => 'required|string',
+            'kecamatan' => 'required|string',
+            'desa' => 'required|string',
+            'provinsi' => 'required|string',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif',
+        ]);
+
+        $biodata = Biodata::findOrFail($id);
+        
+        $biodata->nik = $validatedData['nik'];
+        $biodata->nama = $validatedData['nama'];
+        $biodata->temp_lahir = $validatedData['temp_lahir'];
+        $biodata->tgl_lahir = $validatedData['tgl_lahir'];
+        $biodata->kabupaten = $validatedData['kabupaten'];
+        $biodata->kecamatan = $validatedData['kecamatan'];
+        $biodata->desa = $validatedData['desa'];
+        $biodata->provinsi = $validatedData['provinsi'];
+        
+        if ($request->hasFile('gambar')) {
+            $now = Carbon::now()->format('d-m-y');
+            $gambar = $validatedData['gambar'];
+
+            $nama_gambar = $gambar->getClientOriginalName();
+            $gambar_path = "images/" . $now;
+
+            Storage::disk('public')->putFileAs($gambar_path, $request->gambar, $nama_gambar);
+            $biodata->gambar = $gambar_path . '/' . $nama_gambar;
+        }
+
+        $biodata->save();
+
+        return redirect()->route('biodata.show', $id)->with('success', 'Biodata berhasil diperbarui');
     }
 
     public function inputdata(Request $request)
@@ -78,7 +119,7 @@ class biodataController extends Controller
             'provinsi' => $validatedData['provinsi'],
             'gambar' => $gambar_path . '/' . $nama_gambar,
         ]);
-
-        return view('biodata.result', compact('nik', 'nama', 'temp_lahir', 'tgl_lahir', 'kabupaten', 'kecamatan', 'desa', 'provinsi', 'nama_gambar'));
+        
+        return view('biodata.result', compact('nik', 'nama', 'temp_lahir', 'tgl_lahir', 'kabupaten', 'kecamatan', 'desa', 'provinsi','gambar_path', 'nama_gambar'));
     }
 }

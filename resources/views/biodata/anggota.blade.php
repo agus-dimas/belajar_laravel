@@ -10,7 +10,7 @@
     <div class="container mt-5">
         <h2 class="mb-4">Tabel Data Anggota</h2>
         <div class="text-right mb-3">
-            <a href="/biodata/create" class="btn btn-success">Tambah Data</a>
+            <a href="/biodatum/create" class="btn btn-success">Tambah Data</a>
         </div>
         <table class="table table-bordered">
             <thead>
@@ -43,11 +43,11 @@
                         <td>{{ $biodata->desa }}</td>
                         <td>{{ $biodata->provinsi }}</td>
                         <td>
-                            <a href="" class="btn btn-primary btn-sm">Edit</a>
-                            <form action="" method="POST" style="display:inline;">
-                                @csrf
-                                <button type="submit" class="btn btn-danger btn-sm"></button>
-                            </form>
+
+                            <!-- <a href="/biodata/{{ $biodata->id }}" class="btn btn-primary btn-sm">Lihat</a> -->
+                            <a href="{{ route('biodata.show', ['id' => $biodata->id ]) }}" class="btn btn-primary btn-sm">Lihat</a>
+                            <a href="/biodatum/{{ $biodata->id }}/edit" class="btn btn-warning btn-sm">Edit</a>
+        
                         </td>
                     </tr>
                 @endforeach
