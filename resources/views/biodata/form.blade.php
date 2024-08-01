@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Input Biodata</title>
- 
+
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .is-invalid {
@@ -30,8 +30,8 @@
         @endif
 
         <h1 class="mt-5">INPUT BIODATA</h1>
-        <form action="/biodatum/result" method="POST" enctype="multipart/form-data">
-       
+        <form action="{{ route('biodatas.store') }}" method="POST" enctype="multipart/form-data">
+
             @csrf
             <div class="form-group">
                 <label for="nik">NIK</label>
@@ -88,7 +88,7 @@
                 @error('provinsi')
                             <div class="invalid-feedback">{{ $message}}</div>
                 @enderror
-            
+
             </div>
             <div class="form-group">
                 <label for="gambar">Foto</label>
@@ -96,13 +96,13 @@
                 @error('gambar')
                             <div class="invalid-feedback">{{ $message}}</div>
                 @enderror
-            
+
             </div>
             <button type="submit" class="btn btn-primary">Simpan</button>
-            <a href="/biodatum" class="btn btn-danger white">Batal</a>
+            <a href="{{ route('biodatas.index') }}" class="btn btn-danger white">Batal</a>
         </form>
     </div>
-    
+
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>

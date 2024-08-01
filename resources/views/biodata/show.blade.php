@@ -76,7 +76,7 @@
                     </div>
                 </div>
                 <div class="text-center mt-4">
-                    <a href="/biodatum" class="btn btn-danger">Kembali</a>
+                    <a href="{{ route('biodatas.index') }}" class="btn btn-danger">Kembali</a>
                 </div>
             </div>
         </div>

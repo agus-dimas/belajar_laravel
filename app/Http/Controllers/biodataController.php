@@ -13,7 +13,7 @@ use Carbon\Carbon;
 class biodataController extends Controller
 {
     public function index()
-    {   
+    {
         $biodata = Biodata::all();
         return view('biodata.anggota', compact ('biodata'));
     }
@@ -50,7 +50,7 @@ class biodataController extends Controller
         ]);
 
         $biodata = Biodata::findOrFail($id);
-        
+
         $biodata->nik = $validatedData['nik'];
         $biodata->nama = $validatedData['nama'];
         $biodata->temp_lahir = $validatedData['temp_lahir'];
@@ -59,7 +59,7 @@ class biodataController extends Controller
         $biodata->kecamatan = $validatedData['kecamatan'];
         $biodata->desa = $validatedData['desa'];
         $biodata->provinsi = $validatedData['provinsi'];
-        
+
         if ($request->hasFile('gambar')) {
             $now = Carbon::now()->format('d-m-y');
             $gambar = $validatedData['gambar'];
@@ -73,10 +73,10 @@ class biodataController extends Controller
 
         $biodata->save();
 
-        return redirect()->route('biodata.show', $id)->with('success', 'Biodata berhasil diperbarui');
+        return redirect()->route('biodatas.show', $id)->with('success', 'Biodata berhasil diperbarui');
     }
 
-    public function inputdata(Request $request)
+    public function store(Request $request)
     {
         $validatedData = $request->validate([
             'nik' => 'required|integer',
@@ -119,7 +119,7 @@ class biodataController extends Controller
             'provinsi' => $validatedData['provinsi'],
             'gambar' => $gambar_path . '/' . $nama_gambar,
         ]);
-        
+
         return view('biodata.result', compact('nik', 'nama', 'temp_lahir', 'tgl_lahir', 'kabupaten', 'kecamatan', 'desa', 'provinsi','gambar_path', 'nama_gambar'));
     }
 }

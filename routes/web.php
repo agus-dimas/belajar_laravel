@@ -10,10 +10,6 @@ use App\Http\Controllers\ContohController;
 // Route::get('/biodata/{id}/edit', [biodataController::class, 'edit']);
 
 
-Route::resource('biodatum', biodataController::class);
-
-Route::post('/biodatum/result', [biodataController::class, 'inputdata']);
-Route::get('/biodatum/{id}', [biodataController::class, 'show'])->name('biodata.show'); // untuk melihat data anggota
-Route::put('/biodatum/{id}', [biodataController::class, 'update'])->name('biodata.update'); //  update data anggota
+Route::resource('biodatas', biodataController::class);
 
 Route::resource('contohs', ContohController::class);

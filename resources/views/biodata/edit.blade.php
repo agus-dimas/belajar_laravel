@@ -17,7 +17,7 @@
             </div>
         @endif
 
-        <form action="{{ route('biodata.update', $biodata->id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('biodatas.update', $biodata->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
@@ -101,7 +101,7 @@
             @endif
 
             <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-            <a href="/biodatum" class="btn btn-danger">Kembali</a>
+            <a href="{{ route('biodatas.index') }}" class="btn btn-danger">Kembali</a>
         </form>
     </div>
 
