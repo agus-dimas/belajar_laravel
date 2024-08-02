@@ -31,7 +31,7 @@
                 @php
                     $no = 1;
                 @endphp
-                @foreach($biodata as $biodata)
+                @foreach($biodatas as $biodata)
                     <tr>
                         <td>{{ $no++ }}</td>
                         <td>{{ $biodata->nik }}</td>
@@ -54,6 +54,7 @@
                 @endforeach
             </tbody>
         </table>
+        {{ $biodatas->links() }}
     </div>
 </body>
 </html>

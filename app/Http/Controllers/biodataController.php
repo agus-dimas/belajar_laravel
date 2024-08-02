@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
 
+
 use App\Models\Biodata;
 use Carbon\Carbon;
 
@@ -14,8 +15,8 @@ class biodataController extends Controller
 {
     public function index()
     {
-        $biodata = Biodata::all();
-        return view('biodata.anggota', compact ('biodata'));
+        $biodatas = Biodata::paginate(10);
+        return view('biodata.anggota', compact ('biodatas'));
     }
     public function create()
     {
