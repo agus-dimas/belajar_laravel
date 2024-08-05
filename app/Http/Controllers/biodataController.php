@@ -15,9 +15,10 @@ class biodataController extends Controller
 {
     public function index()
     {
-        $biodatas = Biodata::paginate(10);
+        $biodatas = Biodata::latest()->paginate(10);
         return view('biodata.anggota', compact ('biodatas'));
     }
+
     public function create()
     {
         return view('biodata.form');
