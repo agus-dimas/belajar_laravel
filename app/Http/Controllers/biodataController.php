@@ -37,7 +37,7 @@ class biodataController extends Controller
     {
         $biodata = Biodata::findOrFail($id);
         $hobis = Hobi::all();
-        return view('biodata.edit', ['biodata' => $biodata, 'hobis' => $hobis]);
+        return view('biodata.edit', ['biodata'=>$biodata, 'hobis'=>$hobis]);
     }
 
     public function update(Request $request, $id)
@@ -78,7 +78,8 @@ class biodataController extends Controller
             $biodata->gambar = $gambar_path . '/' . $nama_gambar;
         }
 
-        $biodata->save();
+        // $biodata->save();
+        $biodata->update($validatedData);
 
         return redirect()->route('biodatas.show', $id)->with('success', 'Biodata berhasil diperbarui');
     }
