@@ -34,7 +34,7 @@
                     <tr>
                             <td>{{ $loop->iteration + $biodatas->firstItem() - 1 }}</td>
                             <td>{{ $biodata->nik }}</td>
-                            <td>{{ $biodata->nama }}</td>
+                            <td>{{ $biodata->nama }} </td>
                             <td>{{ $biodata->temp_lahir }}</td>
                             <td>{{ $biodata->tgl_lahir }}</td>
                             <td>{{ $biodata->kabupaten }}</td>
@@ -45,7 +45,7 @@
                                 <div class="d-flex justify-content-center align-items-center">
                                     <a href="{{ route('biodatas.show', $biodata->id) }}" class="btn btn-primary btn-sm mr-2">Lihat</a>
                                     
-                                    <a href="{{ route('biodatas.edit', $biodata->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                    <a href="{{ route('biodatas.edit', $biodata->id) }}" class="btn btn-warning btn-sm">Ubah</a>
                                 </div>
                             </td>
                         </tr>

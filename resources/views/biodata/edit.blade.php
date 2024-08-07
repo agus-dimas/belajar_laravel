@@ -86,6 +86,15 @@
             </div>
 
             <div class="form-group">
+                <label for="hobi">Hobi</label><br>
+                <select name="id_hobi" id="id_hobi">
+                @foreach ($hobis as $h)
+                    <option value="{{ $h->id }}">{{ $h->nama_hobi }}</option>
+                @endforeach
+                 </select>
+            </div>
+            
+            <div class="form-group">
                 <label for="gambar">Gambar</label>
                 <input type="file" class="form-control @error('gambar') is-invalid @enderror" id="gambar" name="gambar">
                 @error('gambar')

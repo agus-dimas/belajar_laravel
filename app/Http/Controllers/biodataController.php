@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 
 
 use App\Models\Biodata;
+use App\Models\Hobi;
 use Carbon\Carbon;
 
 class biodataController extends Controller
@@ -21,25 +22,28 @@ class biodataController extends Controller
 
     public function create()
     {
-        return view('biodata.form');
+        $hobis = Hobi::all();
+        return view('biodata.form', compact ('hobis'));
     }
 
 
     public function show($id)
     {
-        $biodata = Biodata::findOrFail($id);
+        $biodata = Biodata::with('hobis')->findOrFail($id);
         return view('biodata.show', ['biodata' => $biodata]);
     }
 
     public function edit($id)
     {
         $biodata = Biodata::findOrFail($id);
-        return view('biodata.edit', ['biodata' => $biodata]);
+        $hobis = Hobi::all();
+        return view('biodata.edit', ['biodata' => $biodata, 'hobis' => $hobis]);
     }
 
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
+            'id_hobi' => 'required|integer',
             'nik' => 'required|integer',
             'nama' => 'required|string',
             'temp_lahir' => 'required|string',
@@ -53,6 +57,7 @@ class biodataController extends Controller
 
         $biodata = Biodata::findOrFail($id);
 
+        $hobi =  $validatedData['id_hobi'];
         $biodata->nik = $validatedData['nik'];
         $biodata->nama = $validatedData['nama'];
         $biodata->temp_lahir = $validatedData['temp_lahir'];
@@ -81,6 +86,7 @@ class biodataController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
+            'id_hobi' => 'required|integer',
             'nik' => 'required|integer',
             'nama' => 'required|string',
             'temp_lahir' => 'required|string',
@@ -92,9 +98,11 @@ class biodataController extends Controller
             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif',
 
         ]);
+        
 
         $now = Carbon::now()->format('d-m-y');
 
+        $hobi =  $validatedData['id_hobi'];
         $nik =  $validatedData['nik'];
         $nama =  $validatedData['nama'];
         $temp_lahir =  $validatedData['temp_lahir'];
@@ -120,8 +128,13 @@ class biodataController extends Controller
             'desa' => $validatedData['desa'],
             'provinsi' => $validatedData['provinsi'],
             'gambar' => $gambar_path . '/' . $nama_gambar,
+            'id_hobi' => $hobi,
         ]);
+        $nama_hobi = Hobi::find($hobi)->nama_hobi;
+        $deskripsi = Hobi::find($hobi)->deskripsi;
+    //    dd($nama_hobi);    
 
-        return view('biodata.result', compact('nik', 'nama', 'temp_lahir', 'tgl_lahir', 'kabupaten', 'kecamatan', 'desa', 'provinsi','gambar_path', 'nama_gambar'));
+        return view('biodata.result', compact('nik', 'nama', 'temp_lahir', 'tgl_lahir', 'kabupaten', 
+        'kecamatan', 'desa', 'provinsi','gambar_path', 'nama_gambar','nama_hobi','deskripsi'));
     }
 }

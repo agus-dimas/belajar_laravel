@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\biodataController;
+use App\Http\Controllers\HobiController;
 use App\Http\Controllers\ContohController;
 
 // Route::get('/biodata', [biodataController::class, 'index']);
@@ -11,5 +12,4 @@ use App\Http\Controllers\ContohController;
 
 
 Route::resource('biodatas', biodataController::class);
-
-Route::resource('contohs', ContohController::class);
+Route::resource('hobi', HobiController::class);

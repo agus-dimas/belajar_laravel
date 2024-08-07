@@ -8,6 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Biodata extends Model
 {
     use HasFactory;
-    protected $fillable = ['nik','nama','temp_lahir','tgl_lahir','kabupaten', 'kecamatan','desa', 'provinsi','gambar'];
+    protected $fillable = [
+    'id_hobi', 'nik','nama','temp_lahir','tgl_lahir',
+    'kabupaten', 'kecamatan','desa', 'provinsi','gambar'
+    ];
+
+    public function hobis()
+    {
+        return $this->belongsTo(Hobi::class, 'id_hobi');
+    }
+
 }
 

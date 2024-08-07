@@ -72,6 +72,14 @@
                                 <th>Provinsi</th>
                                 <td>{{ $provinsi }}</td>
                             </tr>
+                            <tr>
+                                <th>Hobi</th>
+                                <td>{{ $nama_hobi }}</td>
+                            </tr>
+                            <tr>
+                                <th>Deskripsi</th>
+                                <td>{{ $deskripsi }}</td>
+                            </tr>
                         </table>
                     </div>
                 </div>

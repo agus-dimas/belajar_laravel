@@ -47,6 +47,8 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
+            
+            
             <div class="form-group">
                 <label for="temp_lahir">Tempat Lahir</label>
                 <input type="text" class="form-control @error('temp_lahir') is-invalid @enderror" id="temp_lahir" name="temp_lahir" >
@@ -65,31 +67,40 @@
                 <label for="kabupaten">Kabupaten</label>
                 <input type="text" class="form-control @error('tgl_lahir') is-invalid @enderror" id="kabupaten" name="kabupaten" >
                 @error('kabupaten')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
             <div class="form-group">
                 <label for="kecamatan">Kecamatan</label>
                 <input type="text" class="form-control @error('kecamatan') is-invalid @enderror" id="kecamatan" name="kecamatan" >
                 @error('kecamatan')
-                            <div class="invalid-feedback">{{ $message}}</div>
+                <div class="invalid-feedback">{{ $message}}</div>
                 @enderror
             </div>
             <div class="form-group">
                 <label for="desa">Desa</label>
                 <input type="text" class="form-control form-control @error('desa') is-invalid @enderror" id="desa" name="desa" >
                 @error('desa')
-                            <div class="invalid-feedback">{{ $message}}</div>
+                <div class="invalid-feedback">{{ $message}}</div>
                 @enderror
             </div>
             <div class="form-group">
                 <label for="provinsi">Provinsi</label>
                 <input type="text" class="form-control form-control @error('provinsi') is-invalid @enderror" id="provinsi" name="provinsi" >
                 @error('provinsi')
-                            <div class="invalid-feedback">{{ $message}}</div>
+                <div class="invalid-feedback">{{ $message}}</div>
                 @enderror
-
             </div>
+
+            <div class="form-group">
+                <label for="hobi">Hobi</label><br>
+                <select name="id_hobi" id="id_hobi">
+                @foreach ($hobis as $h)
+                    <option value="{{ $h->id }}">{{ $h->nama_hobi }}</option>
+                @endforeach
+                 </select>
+            </div>
+            
             <div class="form-group">
                 <label for="gambar">Foto</label>
                 <input type="file" class="form-control form-control @error('gambar') is-invalid @enderror" id="gambar" name="gambar" >

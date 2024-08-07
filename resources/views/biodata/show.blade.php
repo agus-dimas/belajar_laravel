@@ -72,6 +72,10 @@
                                 <th>Provinsi</th>
                                 <td>{{ $biodata->provinsi }}</td>
                             </tr>
+                            <tr>
+                                <th>Hobi</th>
+                                <td>{{ $biodata->hobis->nama_hobi }}</td>
+                            </tr>
                         </table>
                     </div>
                 </div>

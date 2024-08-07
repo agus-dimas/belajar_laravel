@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('biodatas',function (Blueprint $table) {
             $table->id();
+            $table->foreignId('id_hobi')->constrained('hobis')->onUpdate('cascade');
             $table->bigInteger('nik');
             $table->string('nama');
             $table->string('temp_lahir');

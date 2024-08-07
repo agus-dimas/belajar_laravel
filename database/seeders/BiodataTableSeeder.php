@@ -21,6 +21,7 @@ class BiodataTableSeeder extends Seeder
         for ($i = 0; $i < 20; $i++) {
             Biodata::create([
             'nik' => rand(10000000, 99999999),
+            'id_hobi' => rand(1,2),
             'nama' => Str::random(10),
             'temp_lahir' => 'Jakarta',
             'tgl_lahir' => '1990-01-01',
