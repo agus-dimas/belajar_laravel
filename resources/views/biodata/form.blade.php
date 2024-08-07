@@ -91,14 +91,17 @@
                 <div class="invalid-feedback">{{ $message}}</div>
                 @enderror
             </div>
-
+            
             <div class="form-group">
-                <label for="hobi">Hobi</label><br>
-                <select name="id_hobi" id="id_hobi">
-                @foreach ($hobis as $h)
-                    <option value="{{ $h->id }}">{{ $h->nama_hobi }}</option>
-                @endforeach
-                 </select>
+                <label for="hobi">Hobi</label>
+                <select class="form-control @error('id_hobi') is-invalid @enderror" id="id_hobi" name="id_hobi">
+                    @foreach ($hobis as $h)
+                        <option value="{{ $h->id }}">{{ $h->nama_hobi }}</option>
+                    @endforeach
+                </select>
+                @error('id_hobi')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
             
             <div class="form-group">

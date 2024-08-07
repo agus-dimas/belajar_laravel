@@ -76,6 +76,10 @@
                                 <th>Hobi</th>
                                 <td>{{ $biodata->hobis->nama_hobi }}</td>
                             </tr>
+                            <tr>
+                                <th>Deskripsi</th>
+                                <td>{{ $biodata->hobis->deskripsi }}</td>
+                            </tr>
                         </table>
                     </div>
                 </div>
