@@ -23,6 +23,13 @@ class HobiController extends Controller
  
         return view('hobi.index', compact('hobis'));
     }
+    public function show($id)
+    {
+
+        $hobi = Hobi::findOrFail($id);
+        return response()->json(['hobi' => $hobi]);
+
+    }
 
     public function create()
     {
