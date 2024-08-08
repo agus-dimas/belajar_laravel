@@ -4,6 +4,7 @@
 use App\Http\Controllers\biodataController;
 use App\Http\Controllers\HobiController;
 use App\Http\Controllers\ContohController;
+use App\Http\Controllers\WilayahController;
 
 // Route::get('/biodata', [biodataController::class, 'index']);
 // Route::get('/biodata/create', [biodataController::class, 'create']);
@@ -13,3 +14,4 @@ use App\Http\Controllers\ContohController;
 
 Route::resource('biodatas', biodataController::class);
 Route::resource('hobi', HobiController::class);
+Route::get('wilayah', [WilayahController::class, 'getWilayah']);
