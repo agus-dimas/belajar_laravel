@@ -56,7 +56,7 @@
                 <tbody>
                     @foreach ($hobis as $index => $hobi)
                     <tr>
-                        <th scope="row">{{ $index + 1 }}</th>
+                        <td>{{ $loop->iteration + $hobis->firstItem() - 1 }}</td>
                         <td>{{ $hobi->nama_hobi }}</td>
                         <td>
                             <div class="d-flex justify-content-center align-items-center">
@@ -76,16 +76,13 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Detail Hobi</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
           </div>
           <div class="modal-body">
             <h4 id="modalHobiName"></h4>
             <p id="modalHobiDescription"></p>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">kembali</button>
           </div>
         </div>
       </div>
@@ -96,7 +93,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
 
-        
+
       $(document).ready(function() {
         $('#exampleModal').on('show.bs.modal', function(event) {
           var button = $(event.relatedTarget); 

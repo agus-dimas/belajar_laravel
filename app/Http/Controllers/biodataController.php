@@ -76,7 +76,7 @@ class biodataController extends Controller
 
         $biodata = Biodata::findOrFail($id);
 
-        $hobi =  $validatedData['id_hobi'];
+        $biodata->id_hobi =  $validatedData['id_hobi'];
         $biodata->nik = $validatedData['nik'];
         $biodata->nama = $validatedData['nama'];
         $biodata->temp_lahir = $validatedData['temp_lahir'];
@@ -97,8 +97,8 @@ class biodataController extends Controller
             $biodata->gambar = $gambar_path . '/' . $nama_gambar;
         }
 
-        // $biodata->save();
-        $biodata->update($validatedData);
+        // $biodata->update($validatedData);
+        $biodata->save();
 
         return redirect()->route('biodatas.show', $id)->with('success', 'Biodata berhasil diperbarui');
     }
