@@ -8,9 +8,19 @@ use Illuminate\Http\Request;
 
 class HobiController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $hobis = Hobi::all();
+        $query = Hobi::query();
+
+         if ($request->has('search')) {
+         
+         $search = $request->input('search');
+         $query->where('nama_hobi', 'LIKE', "%{$search}%")
+                ->orWhere('deskripsi', 'LIKE', "%{$search}%");
+         }
+ 
+         $hobis = $query->paginate(10);
+ 
         return view('hobi.index', compact('hobis'));
     }
 

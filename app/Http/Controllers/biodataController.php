@@ -8,15 +8,34 @@ use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
 
 
+
 use App\Models\Biodata;
 use App\Models\Hobi;
 use Carbon\Carbon;
 
 class biodataController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $biodatas = Biodata::latest()->paginate(10);
+        
+        // $biodatas = Biodata::latest()->paginate(10);
+       
+        $query = Biodata::query();
+
+        if ($request->has('search')) {
+        
+        $search = $request->input('search');
+        $query->where('nik', 'LIKE', "%{$search}%")
+              ->orWhere('nama', 'LIKE', "%{$search}%")
+              ->orWhere('temp_lahir', 'LIKE', "%{$search}%")
+              ->orWhere('kabupaten', 'LIKE', "%{$search}%")
+              ->orWhere('kecamatan', 'LIKE', "%{$search}%")
+              ->orWhere('desa', 'LIKE', "%{$search}%")
+              ->orWhere('provinsi', 'LIKE', "%{$search}%");
+        }
+
+        $biodatas = $query->paginate(10);
+
         return view('biodata.anggota', compact ('biodatas'));
     }
 
