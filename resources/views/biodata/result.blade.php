@@ -5,7 +5,7 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .fade-in {
-            animation: fadeInAnimation ease 2s;
+            animation: fadeInAnimation ease 1s;
             animation-iteration-count: 1;
             animation-fill-mode: forwards;
         }

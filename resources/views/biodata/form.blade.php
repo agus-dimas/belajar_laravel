@@ -52,7 +52,6 @@
                 @enderror
             </div>
 
-
             <div class="form-group">
                 <label for="temp_lahir">Tempat Lahir</label>
                 <input type="text" class="form-control @error('temp_lahir') is-invalid @enderror" id="temp_lahir"
@@ -61,43 +60,72 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
+
             <div class="form-group">
                 <label for="tgl_lahir">Tanggal Lahir</label>
                 <input type="date" class="form-control @error('tgl_lahir') is-invalid @enderror" id="tgl_lahir"
                     name="tgl_lahir">
-                @error('tgl_lahir')
+                    @error('tgl_lahir')
                     <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="provinsi">Provinsi</label>
+                    <select class="form-control @error('provinsi') is-invalid @enderror" id="provinsi" name="provinsi">
+                    @for ($i = 0; $i < count($response->data); $i++)
+                    @if($response->data[$i]->level->id == 1)
+                        <option value="{{ $response->data[$i]->name }}">{{ $response->data[$i]->name }}</option>
+                
+                    @endif
+                    @endfor
+                    </select>
+                @error('provinsi')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+                
             <div class="form-group">
                 <label for="kabupaten">Kabupaten</label>
-                <input type="text" class="form-control @error('tgl_lahir') is-invalid @enderror" id="kabupaten"
-                    name="kabupaten">
+                <select class="form-control @error('kabupaten') is-invalid @enderror" id="kabupaten" name="kabupaten">
+                    @for ($i = 0; $i < count($response->data); $i++)
+                    @if($response->data[$i]->level->id == 2)
+                        <option value="{{ $response->data[$i]->name }}">{{ $response->data[$i]->name }}</option>
+                
+                    @endif
+                    @endfor
+                    </select>
                 @error('kabupaten')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
+
             <div class="form-group">
                 <label for="kecamatan">Kecamatan</label>
-                <input type="text" class="form-control @error('kecamatan') is-invalid @enderror" id="kecamatan"
-                    name="kecamatan">
+                <select class="form-control @error('kecamatan') is-invalid @enderror" id="kecamatan" name="kecamatan">
+                    @for ($i = 0; $i < count($response->data); $i++)
+                    @if($response->data[$i]->level->id == 3)
+                        <option value="{{ $response->data[$i]->name }}">{{ $response->data[$i]->name }}</option>
+                
+                    @endif
+                    @endfor
+                    </select>
                 @error('kecamatan')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
+            
             <div class="form-group">
                 <label for="desa">Desa</label>
-                <input type="text" class="form-control form-control @error('desa') is-invalid @enderror"
-                    id="desa" name="desa">
+                <select class="form-control @error('desa') is-invalid @enderror" id="desa" name="desa">
+                    @for ($i = 0; $i < count($response->data); $i++)
+                    @if($response->data[$i]->level->id == 4)
+                        <option value="{{ $response->data[$i]->name }}">{{ $response->data[$i]->name }}</option>
+                
+                    @endif
+                    @endfor
+                    </select>
                 @error('desa')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
-            <div class="form-group">
-                <label for="provinsi">Provinsi</label>
-                <input type="text" class="form-control form-control @error('provinsi') is-invalid @enderror"
-                    id="provinsi" name="provinsi">
-                @error('provinsi')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
@@ -133,6 +161,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    
+    
+    
     <script>
         window.axios.request({
                 method: 'get',
