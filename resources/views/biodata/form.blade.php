@@ -10,6 +10,7 @@
             border-color: #dc3545;
         }
     </style>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -65,36 +66,44 @@
                 <label for="tgl_lahir">Tanggal Lahir</label>
                 <input type="date" class="form-control @error('tgl_lahir') is-invalid @enderror" id="tgl_lahir"
                     name="tgl_lahir">
-                    @error('tgl_lahir')
+                @error('tgl_lahir')
                     <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
+                @enderror
+            </div>
 
-                <div class="form-group">
-                    <label for="provinsi">Provinsi</label>
-                    <select class="form-control @error('provinsi') is-invalid @enderror" id="provinsi" name="provinsi">
+            {{-- <div class="form-group">
+                <label for="provinsi">Provinsi</label>
+                <select class="form-control @error('provinsi') is-invalid @enderror" id="provinsi" name="provinsi">
                     @for ($i = 0; $i < count($response->data); $i++)
-                    @if($response->data[$i]->level->id == 1)
-                        <option value="{{ $response->data[$i]->name }}">{{ $response->data[$i]->name }}</option>
-                
-                    @endif
+                        @if ($response->data[$i]->level->id == 1)
+                            <option value="{{ $response->data[$i]->name }}">{{ $response->data[$i]->name }}</option>
+                        @endif
                     @endfor
-                    </select>
+                </select>
                 @error('provinsi')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-                
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div> --}}
+            <div class="form-group">
+                <label for="provinsi">Provinsi</label>
+                <select class="form-control @error('provinsi') is-invalid @enderror" id="provinsi" name="provinsi">
+                    <option value="">Pilih</option>
+                </select>
+                @error('provinsi')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+
             <div class="form-group">
                 <label for="kabupaten">Kabupaten</label>
                 <select class="form-control @error('kabupaten') is-invalid @enderror" id="kabupaten" name="kabupaten">
-                    @for ($i = 0; $i < count($response->data); $i++)
-                    @if($response->data[$i]->level->id == 2)
-                        <option value="{{ $response->data[$i]->name }}">{{ $response->data[$i]->name }}</option>
-                
-                    @endif
-                    @endfor
-                    </select>
+                    {{-- @for ($i = 0; $i < count($response->data); $i++)
+                        @if ($response->data[$i]->level->id == 2)
+                            <option value="{{ $response->data[$i]->name }}">{{ $response->data[$i]->name }}</option>
+                        @endif
+                    @endfor --}}
+                    <option value="">Pilih Kabupaten</option>
+                </select>
                 @error('kabupaten')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -103,28 +112,28 @@
             <div class="form-group">
                 <label for="kecamatan">Kecamatan</label>
                 <select class="form-control @error('kecamatan') is-invalid @enderror" id="kecamatan" name="kecamatan">
-                    @for ($i = 0; $i < count($response->data); $i++)
-                    @if($response->data[$i]->level->id == 3)
-                        <option value="{{ $response->data[$i]->name }}">{{ $response->data[$i]->name }}</option>
-                
-                    @endif
-                    @endfor
-                    </select>
+                    {{-- @for ($i = 0; $i < count($response->data); $i++)
+                        @if ($response->data[$i]->level->id == 3)
+                            <option value="{{ $response->data[$i]->name }}">{{ $response->data[$i]->name }}</option>
+                        @endif
+                    @endfor --}}
+                    <option value="">Pilih Kecamatan</option>
+                </select>
                 @error('kecamatan')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
-            
+
             <div class="form-group">
                 <label for="desa">Desa</label>
                 <select class="form-control @error('desa') is-invalid @enderror" id="desa" name="desa">
-                    @for ($i = 0; $i < count($response->data); $i++)
-                    @if($response->data[$i]->level->id == 4)
-                        <option value="{{ $response->data[$i]->name }}">{{ $response->data[$i]->name }}</option>
-                
-                    @endif
-                    @endfor
-                    </select>
+                    {{-- @for ($i = 0; $i < count($response->data); $i++)
+                        @if ($response->data[$i]->level->id == 4)
+                            <option value="{{ $response->data[$i]->name }}">{{ $response->data[$i]->name }}</option>
+                        @endif
+                    @endfor --}}
+                    <option value="">Desa/Kelurahan</option>
+                </select>
                 @error('desa')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -156,25 +165,56 @@
         </form>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    
-    
-    
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
-        window.axios.request({
-                method: 'get',
-                url: '/wilayah',
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            })
-            .then(function(response) {
-                console.log(response.data)
+        function wilayahTemplate(res) {
+            return res.name;
+        };
+        $('#provinsi, #kabupaten, #kecamatan, #desa').select2({
+            placeholder: 'Pilih ...',
+        });
+
+        $.ajax({
+            url: '/list-provinsi'
+        }).done(function(data) {
+            var res = $.map(data, function(obj) {
+                return {
+                    id: obj.id,
+                    text: obj.name
+                };
             });
+            $('#provinsi').select2({
+                placeholder: "Pilih Provinsi",
+                data: res,
+            });
+        });
+
+        $('#provinsi').on('change', function(e) {
+            e.preventDefault();
+            const provinsiId = $(this).val();
+            $('#kabupaten').val(null).trigger('change');
+            $('#kabupaten').select2('destroy');
+            if (provinsiId) {
+                $.ajax({
+                    url: `/list-kabupaten/${provinsiId}`
+                }).done(function(data) {
+                    var res = $.map(data, function(obj) {
+                        return {
+                            id: obj.id,
+                            text: obj.name
+                        };
+                    });
+                    $('#kabupaten').select2({
+                        placeholder: "Pilih Kabupaten",
+                        data: res,
+                    });
+                });
+            }
+        });
     </script>
 </body>
 

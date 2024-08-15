@@ -15,3 +15,5 @@ use App\Http\Controllers\WilayahController;
 Route::resource('biodatas', biodataController::class);
 Route::resource('hobi', HobiController::class);
 Route::get('wilayah', [WilayahController::class, 'getWilayah']);
+Route::get('list-provinsi', [WilayahController::class, 'getProvinsis']);
+Route::get('list-kabupaten/{provinsiId}', [WilayahController::class, 'getKabupatens']);
