@@ -18,13 +18,13 @@ class biodataController extends Controller
 {
     public function index(Request $request)
     {
-        
+
         // $biodatas = Biodata::latest()->paginate(10);
-       
+
         $query = Biodata::query();
 
         if ($request->has('search')) {
-        
+
         $search = $request->input('search');
         $query->where('nik', 'LIKE', "%{$search}%")
               ->orWhere('nama', 'LIKE', "%{$search}%")
@@ -43,13 +43,13 @@ class biodataController extends Controller
     public function create()
     {
         $hobis = Hobi::all();
-        $response = Http::withHeaders(['Authorization' => 'Token 0a3a0a9d872181e5e20ef98826ae9eae6f89e656'])
-            ->get('https://api.kompeni.app/api/v1/master/wilayah/', [
-                'name' => 'Taylor',
-                'page' => 1,
-            ])->throw()->object();
+        // $response = Http::withHeaders(['Authorization' => 'Token 0a3a0a9d872181e5e20ef98826ae9eae6f89e656'])
+        //     ->get('https://api.kompeni.app/api/v1/master/wilayah/', [
+        //         'name' => 'Taylor',
+        //         'page' => 1,
+        //     ])->throw()->object();
 
-        return view('biodata.form', compact ('hobis','response'));
+        return view('biodata.form', compact ('hobis'));
     }
 
 
@@ -125,7 +125,7 @@ class biodataController extends Controller
             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif',
 
         ]);
-        
+
 
         $now = Carbon::now()->format('d-m-y');
 
@@ -159,9 +159,9 @@ class biodataController extends Controller
         ]);
         $nama_hobi = Hobi::find($hobi)->nama_hobi;
         $deskripsi = Hobi::find($hobi)->deskripsi;
-    //    dd($nama_hobi);    
+    //    dd($nama_hobi);
 
-        return view('biodata.result', compact('nik', 'nama', 'temp_lahir', 'tgl_lahir', 'kabupaten', 
+        return view('biodata.result', compact('nik', 'nama', 'temp_lahir', 'tgl_lahir', 'kabupaten',
         'kecamatan', 'desa', 'provinsi','gambar_path', 'nama_gambar','nama_hobi','deskripsi'));
     }
 }
