@@ -70,20 +70,7 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
-
-            {{-- <div class="form-group">
-                <label for="provinsi">Provinsi</label>
-                <select class="form-control @error('provinsi') is-invalid @enderror" id="provinsi" name="provinsi">
-                    @for ($i = 0; $i < count($response->data); $i++)
-                        @if ($response->data[$i]->level->id == 1)
-                            <option value="{{ $response->data[$i]->name }}">{{ $response->data[$i]->name }}</option>
-                        @endif
-                    @endfor
-                </select>
-                @error('provinsi')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div> --}}
+            
             <div class="form-group">
                 <label for="provinsi">Provinsi</label>
                 <select class="form-control @error('provinsi') is-invalid @enderror" id="provinsi" name="provinsi">
@@ -95,14 +82,9 @@
             </div>
 
             <div class="form-group">
-                <label for="kabupaten">Kabupaten</label>
+                <label for="kabupaten">kabupaten</label>
                 <select class="form-control @error('kabupaten') is-invalid @enderror" id="kabupaten" name="kabupaten">
-                    {{-- @for ($i = 0; $i < count($response->data); $i++)
-                        @if ($response->data[$i]->level->id == 2)
-                            <option value="{{ $response->data[$i]->name }}">{{ $response->data[$i]->name }}</option>
-                        @endif
-                    @endfor --}}
-                    <option value="">Pilih Kabupaten</option>
+                    <option value="">Pilih</option>
                 </select>
                 @error('kabupaten')
                     <div class="invalid-feedback">{{ $message }}</div>
@@ -110,14 +92,9 @@
             </div>
 
             <div class="form-group">
-                <label for="kecamatan">Kecamatan</label>
+                <label for="kecamatan">kecamatan</label>
                 <select class="form-control @error('kecamatan') is-invalid @enderror" id="kecamatan" name="kecamatan">
-                    {{-- @for ($i = 0; $i < count($response->data); $i++)
-                        @if ($response->data[$i]->level->id == 3)
-                            <option value="{{ $response->data[$i]->name }}">{{ $response->data[$i]->name }}</option>
-                        @endif
-                    @endfor --}}
-                    <option value="">Pilih Kecamatan</option>
+                    <option value="">Pilih</option>
                 </select>
                 @error('kecamatan')
                     <div class="invalid-feedback">{{ $message }}</div>
@@ -127,14 +104,9 @@
             <div class="form-group">
                 <label for="desa">Desa</label>
                 <select class="form-control @error('desa') is-invalid @enderror" id="desa" name="desa">
-                    {{-- @for ($i = 0; $i < count($response->data); $i++)
-                        @if ($response->data[$i]->level->id == 4)
-                            <option value="{{ $response->data[$i]->name }}">{{ $response->data[$i]->name }}</option>
-                        @endif
-                    @endfor --}}
-                    <option value="">Desa/Kelurahan</option>
+                    <option value="">Pilih</option>
                 </select>
-                @error('desa')
+                @error('kecamatan')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
@@ -170,6 +142,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    
     <script>
         function wilayahTemplate(res) {
             return res.name;
@@ -198,6 +171,7 @@
             const provinsiId = $(this).val();
             $('#kabupaten').val(null).trigger('change');
             $('#kabupaten').select2('destroy');
+           
             if (provinsiId) {
                 $.ajax({
                     url: `/list-kabupaten/${provinsiId}`
@@ -213,8 +187,57 @@
                         data: res,
                     });
                 });
-            }
+           }
         });
+
+        $('#kabupaten').on('change', function(e) {
+        e.preventDefault();
+        const kabupatenId = $(this).val();
+        $('#kecamatan').val(null).trigger('change');
+      
+ 
+        if (kabupatenId) {
+            $.ajax({
+                url: `/list-kecamatan/${kabupatenId}`
+            }).done(function(data) {
+                var res = $.map(data, function(obj) {
+                    return {
+                        id: obj.id,
+                        text: obj.name
+                    };
+                });
+                $('#kecamatan').select2({
+                    placeholder: "Pilih Kecamatan",
+                    data: res,
+                });
+            });
+        }
+    });
+
+    $('#kecamatan').on('change', function(e) {
+        e.preventDefault();
+        const kecamatanId = $(this).val();
+        $('#desa').val(null).trigger('change');
+ 
+
+        if (kecamatanId) {
+            $.ajax({
+                url: `/list-desa/${kecamatanId}`
+            }).done(function(data) {
+                var res = $.map(data, function(obj) {
+                    return {
+                        id: obj.id,
+                        text: obj.name
+                    };
+                });
+                $('#desa').select2({
+                    placeholder: "Pilih Desa",
+                    data: res,
+                });
+            });
+        }
+    });
+       
     </script>
 </body>
 
