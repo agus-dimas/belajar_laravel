@@ -106,7 +106,11 @@ class biodataController extends Controller
 
     public function store(Request $request)
     {
+        dd($request->all()); 
         $validatedData = $request->validate([
+            
+       
+            // 'provinsi_name' => 'required|string',
             'id_hobi' => 'required|integer',
             'nik' => 'required|integer',
             'nama' => 'required|string',
@@ -120,9 +124,13 @@ class biodataController extends Controller
 
         ]);
 
-
+        
         $now = Carbon::now()->format('d-m-y');
-
+        // $biodata->provinsi_name = $request->input('provinsi_name');
+        // $provinsiName = $request->input('selectedProvinsiName');
+        $provinsiName = $request->input('provinsi_name');
+        // \Log::info($request->all());
+        
         $hobi =  $validatedData['id_hobi'];
         $nik =  $validatedData['nik'];
         $nama =  $validatedData['nama'];
@@ -133,10 +141,11 @@ class biodataController extends Controller
         $desa =  $validatedData['desa'];
         $provinsi =  $validatedData['provinsi'];
         $gambar = $validatedData['gambar'];
-
+        
         $nama_gambar = $gambar->getClientOriginalName();
         $gambar_path = "images/" . $now;
-
+        
+        // dd($request);
         // Storage::disk('public')->put("images/" . $now .'/'. $nama_gambar, $request->gambar);
         Storage::disk('public')->putFileAs($gambar_path, $request->gambar, $nama_gambar);
         Biodata::create([
@@ -153,7 +162,10 @@ class biodataController extends Controller
         ]);
         $nama_hobi = Hobi::find($hobi)->nama_hobi;
         $deskripsi = Hobi::find($hobi)->deskripsi;
-    //    dd($nama_hobi);
+
+    //     $provinsi_name = Provinsi::find($provinsi)->name;
+    //     $kabupaten_name = Kabupaten::find($kabupaten)->name;
+        
 
         return view('biodata.result', compact('nik', 'nama', 'temp_lahir', 'tgl_lahir', 'kabupaten',
         'kecamatan', 'desa', 'provinsi','gambar_path', 'nama_gambar','nama_hobi','deskripsi'));

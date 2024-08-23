@@ -12,7 +12,9 @@ class WilayahController extends Controller
 
         $response = Http::withHeaders(['Authorization' => 'Token 0a3a0a9d872181e5e20ef98826ae9eae6f89e656'])
             ->get('https://api.kompeni.app/api/v1/master/wilayah/?level=1')->throw()->object();
+        // dd($response->data);    
         return response()->json($response->data, 200);
+
     }
 
     public function getKabupatens($provinsiId)
