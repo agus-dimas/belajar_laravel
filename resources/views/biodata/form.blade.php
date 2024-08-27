@@ -70,17 +70,17 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
-            
+
             <div class="form-group">
                 <label for="provinsi">Provinsi</label>
-                <select class="form-control @error('provinsi') is-invalid @enderror" id="provinsi" name="provinsi">                  
-                <option value="" id="selectedProvinsiName">Pilih</option>
+                <select class="form-control @error('provinsi') is-invalid @enderror" id="provinsi" name="provinsi">
+                <option value="">Pilih</option>
                 </select>
-                <!-- <input type="hidden" name="provinsi_name" id="selectedProvinsiName"> -->
                 @error('provinsi')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
+            <input type="hidden" name="provinsi_name" id="selectedProvinsiName">
 
             <div class="form-group">
                 <label for="kabupaten">kabupaten</label>
@@ -137,31 +137,30 @@
             <a href="{{ route('biodatas.index') }}" class="btn btn-danger white">Batal</a>
         </form>
     </div>
-    
+
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
     integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    
+
     <script>
         function wilayahTemplate(res) {
             return res.text;
-            console.log(res.text);
         };
-        
+
         // let selectedProvinsiName = '';
         // let selectedKabupatenName = '';
         // let selectedKecamatanName = '';
         // let selectedDesaName = '';
 
-        
-        
+
+
         $('#provinsi, #kabupaten, #kecamatan, #desa').select2({
             placeholder: 'Pilih ...',
-            
+
         });
-        
+
         $.ajax({
             url: '/list-provinsi'
         }).done(function(data) {
@@ -175,10 +174,10 @@
                 placeholder: "Pilih Provinsi",
                 data: res,
                 templateResult: wilayahTemplate
-                
+
             });
         });
-        
+
         $('#provinsi').on('change', function(e) {
             e.preventDefault();
             const provinsiId = $(this).val();
@@ -187,8 +186,8 @@
             // const provinsiName = $(this.text).val();
             $('#selectedProvinsiName').val(selectedProvinsiName);
             $('#kabupaten').val(null).trigger('change');
-            $('#kabupaten').select2('destroy');
-            
+            $('#kabupaten').empty();
+
             if (provinsiId) {
                 $.ajax({
                     url: `/list-kabupaten/${provinsiId}`
@@ -196,24 +195,24 @@
                     var res = $.map(data, function(obj) {
                         return {
                             id: obj.id,
-                            text: obj.name                         
+                            text: obj.name
                         };
                     });
                     $('#kabupaten').select2({
                         placeholder: "Pilih Kabupaten",
-                        data: res,                     
-                    });                   
-                });           
+                        data: res,
+                    });
+                });
             }
             });
-            
+
             $('#kabupaten').on('change', function(e) {
                 e.preventDefault();
-                const kabupatenId = $(this).val();      
+                const kabupatenId = $(this).val();
                 selectedKabupatenName = $(this).find("option:selected").text();
                 $('#kecamatan').val(null).trigger('change');
-                
-                
+
+
                 if (kabupatenId) {
                     $.ajax({
                         url: `/list-kecamatan/${kabupatenId}`
@@ -221,24 +220,24 @@
                         var res = $.map(data, function(obj) {
                             return {
                                 id: obj.id,
-                                text: obj.name,   
+                                text: obj.name,
                             };
                         });
                         $('#kecamatan').select2({
                             placeholder: "Pilih Kecamatan",
-                            data: res,                      
+                            data: res,
                         });
                     });
                 }
             });
-            
+
             $('#kecamatan').on('change', function(e) {
                 e.preventDefault();
                 const kecamatanId = $(this).val();
-                selectedKecamatanName = $(this).find("option:selected").text();        
+                selectedKecamatanName = $(this).find("option:selected").text();
                 $('#desa').val(null).trigger('change');
-                
-                
+
+
                 if (kecamatanId) {
                     $.ajax({
                         url: `/list-desa/${kecamatanId}`
@@ -246,12 +245,12 @@
                         var res = $.map(data, function(obj) {
                             return {
                                 id: obj.id,
-                                text: obj.name,                             
+                                text: obj.name,
                             };
                         });
                         $('#desa').select2({
                             placeholder: "Pilih Desa",
-                            data: res,                       
+                            data: res,
                         });
                     });
                 }
