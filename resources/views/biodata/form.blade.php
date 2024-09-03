@@ -91,6 +91,7 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
+            <input type="hidden" name="kabupaten_name" id="selectedKabupatenName">
 
             <div class="form-group">
                 <label for="kecamatan">kecamatan</label>
@@ -101,6 +102,7 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
+            <input type="hidden" name="kecamatan_name" id="selectedKecamatanName">
 
             <div class="form-group">
                 <label for="desa">Desa</label>
@@ -110,6 +112,7 @@
                 @error('kecamatan')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
+                <input type="hidden" name="desa_name" id="selectedDesaName">
             </div>
 
             <div class="form-group">
@@ -209,8 +212,12 @@
             $('#kabupaten').on('change', function(e) {
                 e.preventDefault();
                 const kabupatenId = $(this).val();
-                selectedKabupatenName = $(this).find("option:selected").text();
+                const selectedKabupatenName = $(this).find("option:selected").text();
+                console.log(selectedKabupatenName);
+
+                $('#selectedKabupatenName').val(selectedKabupatenName);
                 $('#kecamatan').val(null).trigger('change');
+                $('#kecamatan').empty();
 
 
                 if (kabupatenId) {
@@ -234,8 +241,11 @@
             $('#kecamatan').on('change', function(e) {
                 e.preventDefault();
                 const kecamatanId = $(this).val();
-                selectedKecamatanName = $(this).find("option:selected").text();
+                const selectedKecamatanName = $(this).find("option:selected").text();
+                console.log(selectedKecamatanName);
+                $('#selectedKecamatanName').val(selectedKecamatanName)
                 $('#desa').val(null).trigger('change');
+                $('#desa').empty();
 
 
                 if (kecamatanId) {
@@ -255,9 +265,12 @@
                     });
                 }
             });
+
             $('#desa').on('change', function(e) {
             e.preventDefault();
-            selectedDesaName = $(this).find("option:selected").text();
+            const selectedDesaName = $(this).find("option:selected").text();
+            console.log('selectedDesaName', selectedDesaName);
+            $("#selectedDesaName").val(selectedDesaName);
         });
 
 </script>

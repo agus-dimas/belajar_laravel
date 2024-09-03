@@ -18,10 +18,10 @@ return new class extends Migration
             $table->string('nama');
             $table->string('temp_lahir');
             $table->string('tgl_lahir');
-            $table->string('kabupaten');
-            $table->string('kecamatan');
-            $table->string('desa');
-            $table->string('provinsi');
+            $table->string('kabupaten_name');
+            $table->string('kecamatan_name');
+            $table->string('desa_name');
+            $table->string('provinsi_name');
             $table->string('gambar');
             $table->timestamps();
         });

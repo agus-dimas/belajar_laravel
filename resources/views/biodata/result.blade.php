@@ -58,19 +58,19 @@
                             </tr>
                             <tr>
                                 <th>Provinsi</th>
-                                <td >{{ $provinsi }}</td>
+                                <td >{{ $provinsi_name }}</td>
                             </tr>
                             <tr>
                                 <th>Kabupaten</th>
-                                <td>{{ $kabupaten }}</td>
+                                <td>{{ $kabupaten_name }}</td>
                             </tr>
                             <tr>
                                 <th>Kecamatan</th>
-                                <td>{{ $kecamatan }}</td>
+                                <td>{{ $kecamatan_name }}</td>
                             </tr>
                             <tr>
                                 <th>Desa</th>
-                                <td>{{ $desa }}</td>
+                                <td>{{ $desa_name }}</td>
                             </tr>
                             <tr>
                                 <th>Hobi</th>

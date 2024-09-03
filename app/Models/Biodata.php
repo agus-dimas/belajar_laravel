@@ -10,7 +10,11 @@ class Biodata extends Model
     use HasFactory;
     protected $fillable = [
     'id_hobi', 'nik','nama','temp_lahir','tgl_lahir',
-    'kabupaten', 'kecamatan','desa', 'provinsi','gambar'
+    'gambar',
+    'provinsi_name',
+    'kabupaten_name',
+    'kecamatan_name',
+    'desa_name'
     ];
 
     public function hobis()
