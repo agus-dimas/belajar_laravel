@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Biodata</title>
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 <body>
     <div class="container mt-5">
@@ -52,35 +53,10 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
-
-            <!-- <div class="form-group">
-                <label for="kabupaten">Kabupaten</label>
-                <input type="text" class="form-control @error('kabupaten') is-invalid @enderror" id="kabupaten" name="kabupaten" value="{{ old('kabupaten', $biodata->kabupaten_name) }}" required>
-                @error('kabupaten')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
-
-            <div class="form-group">
-                <label for="kecamatan">Kecamatan</label>
-                <input type="text" class="form-control @error('kecamatan') is-invalid @enderror" id="kecamatan" name="kecamatan" value="{{ old('kecamatan', $biodata->kecamatan_name) }}" required>
-                @error('kecamatan')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
-
-            <div class="form-group">
-                <label for="desa">Desa</label>
-                <input type="text" class="form-control @error('desa') is-invalid @enderror" id="desa" name="desa" value="{{ old('desa', $biodata->desa_name) }}" required>
-                @error('desa')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
-             -->
             <div class="form-group">
                 <label for="provinsi">Provinsi</label>
                 <select class="form-control @error('provinsi') is-invalid @enderror" id="provinsi" name="provinsi">
-                <option value="{{ old('provinsi', $biodata->provinsi_id) }}">{{ old('provinsi', $biodata->provinsi_name) }}</option>
+                    <option value="{{ old('provinsi', $biodata->provinsi_id) }}">{{ old('provinsi', $biodata->provinsi_name) }}</option>
                 </select>
                 @error('provinsi')
                     <div class="invalid-feedback">{{ $message }}</div>
@@ -91,7 +67,7 @@
             <div class="form-group">
                 <label for="kabupaten">kabupaten</label>
                 <select class="form-control @error('kabupaten') is-invalid @enderror" id="kabupaten" name="kabupaten">
-                    <option value="{{ old('kabupaten', $biodata->kabupaten_name) }}">{{ $biodata->kabupaten_name }}</option>
+                    <option value="{{ old('kabupaten', $biodata->kabupaten_id) }}">{{ $biodata->kabupaten_name }}</option>
                 </select>
                 @error('kabupaten')
                     <div class="invalid-feedback">{{ $message }}</div>
@@ -102,7 +78,7 @@
             <div class="form-group">
                 <label for="kecamatan">kecamatan</label>
                 <select class="form-control @error('kecamatan') is-invalid @enderror" id="kecamatan" name="kecamatan">
-                    <option value="{{ old('kecamatan', $biodata->kecamatan_name) }}">{{ $biodata->kecamatan_name }}</option>
+                    <option value="{{ old('kecamatan', $biodata->kecamatan_id) }}">{{ $biodata->kecamatan_name }}</option>
                 </select>
                 @error('kecamatan')
                     <div class="invalid-feedback">{{ $message }}</div>
@@ -113,7 +89,7 @@
             <div class="form-group">
                 <label for="desa">Desa</label>
                 <select class="form-control @error('desa') is-invalid @enderror" id="desa" name="desa">
-                    <option value="{{ old('desa', $biodata->desa_name) }}">{{ $biodata->desa_name }}</option>
+                    <option value="{{ old('desa', $biodata->desa_id) }}">{{ $biodata->desa_name }}</option>
                 </select>
                 @error('kecamatan')
                     <div class="invalid-feedback">{{ $message }}</div>
@@ -133,7 +109,7 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
-            
+
             <div class="form-group">
                 <label for="gambar">Gambar</label>
                 <input type="file" class="form-control @error('gambar') is-invalid @enderror" id="gambar" name="gambar">
@@ -158,7 +134,11 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
+    let biodata = @json($biodata);
+
+    console.log(biodata);
     function wilayahTemplate(res) {
         return res.text;
     };
@@ -178,10 +158,11 @@
         });
         $('#provinsi').select2({
             placeholder: "Pilih Provinsi",
+            allowClear: true,
             data: res,
             templateResult: wilayahTemplate
         });
-        
+
     }).fail(function() {
         alert('Gagal memuat provinsi');
     });
@@ -205,6 +186,7 @@
                 $('#kabupaten').select2({
                     placeholder: "Pilih Kabupaten",
                     data: res,
+                    allowClear: true,
                 }).trigger('change');
 
             }).fail(function() {

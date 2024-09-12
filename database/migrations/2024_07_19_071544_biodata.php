@@ -13,15 +13,14 @@ return new class extends Migration
     {
         Schema::create('biodatas',function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_hobi')->constrained('hobis')->onUpdate('cascade');
             $table->bigInteger('nik');
             $table->string('nama');
             $table->string('temp_lahir');
             $table->string('tgl_lahir');
-            $table->string('kabupaten_name');
-            $table->string('kecamatan_name');
-            $table->string('desa_name');
-            $table->string('provinsi_name');
+            $table->string('kabupaten');
+            $table->string('kecamatan');
+            $table->string('desa');
+            $table->string('provinsi');
             $table->string('gambar');
             $table->timestamps();
         });
