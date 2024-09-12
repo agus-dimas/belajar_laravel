@@ -56,10 +56,10 @@
                         <th>Nama</th>
                         <th>Tempat Lahir</th>
                         <th>Tanggal Lahir</th>
+                        <th>Provinsi</th>
                         <th>Kabupaten</th>
                         <th>Kecamatan</th>
                         <th>Desa</th>
-                        <th>Provinsi</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -72,10 +72,10 @@
                             <td>{{ $biodata->nama }} </td>
                             <td>{{ $biodata->temp_lahir }}</td>
                             <td>{{ $biodata->tgl_lahir }}</td>
-                            <td>{{ $biodata->kabupaten }}</td>
-                            <td>{{ $biodata->kecamatan }}</td>
-                            <td>{{ $biodata->desa }}</td>
-                            <td>{{ $biodata->provinsi }}</td>
+                            <td>{{ $biodata->provinsi_name }}</td>
+                            <td>{{ $biodata->kabupaten_name }}</td>
+                            <td>{{ $biodata->kecamatan_name }}</td>
+                            <td>{{ $biodata->desa_name }}</td>
                             <td >
                                 <div class="d-flex justify-content-center align-items-center">
                                     <a href="{{ route('biodatas.show', $biodata->id) }}" class="btn btn-primary btn-sm mr-2">Lihat</a>

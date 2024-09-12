@@ -58,19 +58,19 @@
                             </tr>
                             <tr>
                                 <th>Kabupaten</th>
-                                <td>{{ $biodata->kabupaten }}</td>
+                                <td>{{ $biodata->kabupaten_name }}</td>
                             </tr>
                             <tr>
                                 <th>Kecamatan</th>
-                                <td>{{ $biodata->kecamatan }}</td>
+                                <td>{{ $biodata->kecamatan_name }}</td>
                             </tr>
                             <tr>
                                 <th>Desa</th>
-                                <td>{{ $biodata->desa }}</td>
+                                <td>{{ $biodata->desa_name }}</td>
                             </tr>
                             <tr>
                                 <th>Provinsi</th>
-                                <td>{{ $biodata->provinsi }}</td>
+                                <td>{{ $biodata->provinsi_name }}</td>
                             </tr>
                             <tr>
                                 <th>Hobi</th>

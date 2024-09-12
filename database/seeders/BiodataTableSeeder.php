@@ -25,10 +25,10 @@ class BiodataTableSeeder extends Seeder
             'nama' => Str::random(10),
             'temp_lahir' => 'Jakarta',
             'tgl_lahir' => '1990-01-01',
-            'kabupaten' => 'Kabupaten',
-            'kecamatan' => 'Kecamatan',
-            'desa' => 'Desa',
-            'provinsi' => 'Provinsi',
+            'provinsi_name' => 'BALI',
+            'kabupaten_name' => 'TABANAN',
+            'kecamatan_name' => 'KERAMBITAN',
+            'desa_name' => 'PENARUKAN',
             'gambar' => 'path/to/default/image.jpg',
        ]);
      }

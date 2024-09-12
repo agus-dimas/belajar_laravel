@@ -141,7 +141,7 @@
         </form>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" 
     integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -151,13 +151,6 @@
         function wilayahTemplate(res) {
             return res.text;
         };
-
-        // let selectedProvinsiName = '';
-        // let selectedKabupatenName = '';
-        // let selectedKecamatanName = '';
-        // let selectedDesaName = '';
-
-
 
         $('#provinsi, #kabupaten, #kecamatan, #desa').select2({
             placeholder: 'Pilih ...',
@@ -186,7 +179,7 @@
             const provinsiId = $(this).val();
             const selectedProvinsiName = $(this).find("option:selected").text();
             console.log(selectedProvinsiName);
-            // const provinsiName = $(this.text).val();
+          
             $('#selectedProvinsiName').val(selectedProvinsiName);
             $('#kabupaten').val(null).trigger('change');
             $('#kabupaten').empty();

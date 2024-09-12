@@ -29,10 +29,10 @@ class biodataController extends Controller
         $query->where('nik', 'LIKE', "%{$search}%")
               ->orWhere('nama', 'LIKE', "%{$search}%")
               ->orWhere('temp_lahir', 'LIKE', "%{$search}%")
-              ->orWhere('kabupaten', 'LIKE', "%{$search}%")
-              ->orWhere('kecamatan', 'LIKE', "%{$search}%")
-              ->orWhere('desa', 'LIKE', "%{$search}%")
-              ->orWhere('provinsi', 'LIKE', "%{$search}%");
+              ->orWhere('provinsi_name', 'LIKE', "%{$search}%")
+              ->orWhere('kabupaten_name', 'LIKE', "%{$search}%")
+              ->orWhere('kecamatan_name', 'LIKE', "%{$search}%")
+              ->orWhere('desa_name', 'LIKE', "%{$search}%");
         }
 
         $biodatas = $query->paginate(10);
@@ -82,10 +82,10 @@ class biodataController extends Controller
         $biodata->nama = $validatedData['nama'];
         $biodata->temp_lahir = $validatedData['temp_lahir'];
         $biodata->tgl_lahir = $validatedData['tgl_lahir'];
-        $biodata->kabupaten = $validatedData['kabupaten'];
-        $biodata->kecamatan = $validatedData['kecamatan'];
-        $biodata->desa = $validatedData['desa'];
-        $biodata->provinsi = $validatedData['provinsi'];
+        $biodata->kabupaten_name = $validatedData['kabupaten'];
+        $biodata->kecamatan_name = $validatedData['kecamatan'];
+        $biodata->desa_name = $validatedData['desa'];
+        $biodata->provinsi_name = $validatedData['provinsi'];
 
         if ($request->hasFile('gambar')) {
             $now = Carbon::now()->format('d-m-y');
@@ -147,8 +147,6 @@ class biodataController extends Controller
         
         $nama_gambar = $gambar->getClientOriginalName();
         $gambar_path = "images/" . $now;
-        
-        // dd($request->input('provinsi_name'));
       
         // Storage::disk('public')->put("images/" . $now .'/'. $nama_gambar, $request->gambar);
         Storage::disk('public')->putFileAs($gambar_path, $request->gambar, $nama_gambar);

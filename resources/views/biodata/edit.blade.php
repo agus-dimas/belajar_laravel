@@ -53,9 +53,9 @@
                 @enderror
             </div>
 
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label for="kabupaten">Kabupaten</label>
-                <input type="text" class="form-control @error('kabupaten') is-invalid @enderror" id="kabupaten" name="kabupaten" value="{{ old('kabupaten', $biodata->kabupaten) }}" required>
+                <input type="text" class="form-control @error('kabupaten') is-invalid @enderror" id="kabupaten" name="kabupaten" value="{{ old('kabupaten', $biodata->kabupaten_name) }}" required>
                 @error('kabupaten')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -63,7 +63,7 @@
 
             <div class="form-group">
                 <label for="kecamatan">Kecamatan</label>
-                <input type="text" class="form-control @error('kecamatan') is-invalid @enderror" id="kecamatan" name="kecamatan" value="{{ old('kecamatan', $biodata->kecamatan) }}" required>
+                <input type="text" class="form-control @error('kecamatan') is-invalid @enderror" id="kecamatan" name="kecamatan" value="{{ old('kecamatan', $biodata->kecamatan_name) }}" required>
                 @error('kecamatan')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -71,19 +71,56 @@
 
             <div class="form-group">
                 <label for="desa">Desa</label>
-                <input type="text" class="form-control @error('desa') is-invalid @enderror" id="desa" name="desa" value="{{ old('desa', $biodata->desa) }}" required>
+                <input type="text" class="form-control @error('desa') is-invalid @enderror" id="desa" name="desa" value="{{ old('desa', $biodata->desa_name) }}" required>
                 @error('desa')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
-
+             -->
             <div class="form-group">
                 <label for="provinsi">Provinsi</label>
-                <input type="text" class="form-control @error('provinsi') is-invalid @enderror" id="provinsi" name="provinsi" value="{{ old('provinsi', $biodata->provinsi) }}" required>
+                <select class="form-control @error('provinsi') is-invalid @enderror" id="provinsi" name="provinsi">
+                <option value="{{ old('provinsi', $biodata->provinsi_id) }}">{{ old('provinsi', $biodata->provinsi_name) }}</option>
+                </select>
                 @error('provinsi')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
+            <input type="hidden" name="provinsi_name" id="selectedProvinsiName" value="{{ old('provinsi_name', $biodata->provinsi_name) }}">
+
+            <div class="form-group">
+                <label for="kabupaten">kabupaten</label>
+                <select class="form-control @error('kabupaten') is-invalid @enderror" id="kabupaten" name="kabupaten">
+                    <option value="{{ old('kabupaten', $biodata->kabupaten_name) }}">{{ $biodata->kabupaten_name }}</option>
+                </select>
+                @error('kabupaten')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+            <input type="hidden" name="kabupaten_name" id="selectedKabupatenName">
+
+            <div class="form-group">
+                <label for="kecamatan">kecamatan</label>
+                <select class="form-control @error('kecamatan') is-invalid @enderror" id="kecamatan" name="kecamatan">
+                    <option value="{{ old('kecamatan', $biodata->kecamatan_name) }}">{{ $biodata->kecamatan_name }}</option>
+                </select>
+                @error('kecamatan')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+            <input type="hidden" name="kecamatan_name" id="selectedKecamatanName">
+
+            <div class="form-group">
+                <label for="desa">Desa</label>
+                <select class="form-control @error('desa') is-invalid @enderror" id="desa" name="desa">
+                    <option value="{{ old('desa', $biodata->desa_name) }}">{{ $biodata->desa_name }}</option>
+                </select>
+                @error('kecamatan')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+                <input type="hidden" name="desa_name" id="selectedDesaName">
+            </div>
+
 
             <div class="form-group">
                 <label for="hobi">Hobi</label>
@@ -120,5 +157,118 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+    function wilayahTemplate(res) {
+        return res.text;
+    };
+
+    $('#provinsi, #kabupaten, #kecamatan, #desa').select2({
+        placeholder: 'Pilih Wilayah',
+    });
+
+    $.ajax({
+        url: '/list-provinsi'
+    }).done(function(data) {
+        var res = $.map(data, function(obj) {
+            return {
+                id: obj.id,
+                text: obj.name
+            };
+        });
+        $('#provinsi').select2({
+            placeholder: "Pilih Provinsi",
+            data: res,
+            templateResult: wilayahTemplate
+        });
+        
+    }).fail(function() {
+        alert('Gagal memuat provinsi');
+    });
+
+    $('#provinsi').on('change', function(e) {
+        const provinsiId = $(this).val();
+        const selectedProvinsiName = $(this).find("option:selected").text();
+        $('#selectedProvinsiName').val(selectedProvinsiName);
+
+        $('#kabupaten').val(null).trigger('change');
+        if (provinsiId) {
+            $.ajax({
+                url: `/list-kabupaten/${provinsiId}`
+            }).done(function(data) {
+                var res = $.map(data, function(obj) {
+                    return {
+                        id: obj.id,
+                        text: obj.name
+                    };
+                });
+                $('#kabupaten').select2({
+                    placeholder: "Pilih Kabupaten",
+                    data: res,
+                }).trigger('change');
+
+            }).fail(function() {
+                alert('Gagal memuat kabupaten');
+            });
+        }
+    });
+
+    $('#kabupaten').on('change', function(e) {
+        const kabupatenId = $(this).val();
+        const selectedKabupatenName = $(this).find("option:selected").text();
+        $('#selectedKabupatenName').val(selectedKabupatenName);
+
+        $('#kecamatan').val(null).trigger('change');
+        if (kabupatenId) {
+            $.ajax({
+                url: `/list-kecamatan/${kabupatenId}`
+            }).done(function(data) {
+                var res = $.map(data, function(obj) {
+                    return {
+                        id: obj.id,
+                        text: obj.name,
+                    };
+                });
+                $('#kecamatan').select2({
+                    placeholder: "Pilih Kecamatan",
+                    data: res,
+                });
+            }).fail(function() {
+                alert('Gagal memuat kecamatan');
+            });
+        }
+    });
+
+    $('#kecamatan').on('change', function(e) {
+        const kecamatanId = $(this).val();
+        const selectedKecamatanName = $(this).find("option:selected").text();
+        $('#selectedKecamatanName').val(selectedKecamatanName);
+
+        $('#desa').val(null).trigger('change');
+        if (kecamatanId) {
+            $.ajax({
+                url: `/list-desa/${kecamatanId}`
+            }).done(function(data) {
+                var res = $.map(data, function(obj) {
+                    return {
+                        id: obj.id,
+                        text: obj.name,
+                    };
+                });
+                $('#desa').select2({
+                    placeholder: "Pilih Desa",
+                    data: res,
+                });
+            }).fail(function() {
+                alert('Gagal memuat desa');
+            });
+        }
+    });
+
+    $('#desa').on('change', function(e) {
+        const selectedDesaName = $(this).find("option:selected").text();
+        $("#selectedDesaName").val(selectedDesaName);
+    });
+</script>
 </body>
 </html>
