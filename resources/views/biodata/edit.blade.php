@@ -183,6 +183,7 @@
                         text: obj.name
                     };
                 });
+
                 $('#kabupaten').select2({
                     placeholder: "Pilih Kabupaten",
                     data: res,
@@ -214,7 +215,9 @@
                 $('#kecamatan').select2({
                     placeholder: "Pilih Kecamatan",
                     data: res,
-                });
+                    allowClear: true,
+                }).trigger('change');
+
             }).fail(function() {
                 alert('Gagal memuat kecamatan');
             });
@@ -240,7 +243,9 @@
                 $('#desa').select2({
                     placeholder: "Pilih Desa",
                     data: res,
-                });
+                    allowClear: true,
+                }).trigger('change');
+                
             }).fail(function() {
                 alert('Gagal memuat desa');
             });
