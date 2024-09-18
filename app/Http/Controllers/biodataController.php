@@ -72,6 +72,11 @@ class biodataController extends Controller
             'kecamatan' => 'required|string',
             'desa' => 'required|string',
             'provinsi' => 'required|string',
+            'kabupaten_name' => 'required|string',
+            'kecamatan_name' => 'required|string',
+            'desa_name' => 'required|string',
+            'provinsi_name' => 'required|string',
+           
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif',
         ]);
 
@@ -82,10 +87,10 @@ class biodataController extends Controller
         $biodata->nama = $validatedData['nama'];
         $biodata->temp_lahir = $validatedData['temp_lahir'];
         $biodata->tgl_lahir = $validatedData['tgl_lahir'];
-        $biodata->kabupaten_name = $validatedData['kabupaten'];
-        $biodata->kecamatan_name = $validatedData['kecamatan'];
-        $biodata->desa_name = $validatedData['desa'];
-        $biodata->provinsi_name = $validatedData['provinsi'];
+        $biodata->kabupaten_name = $validatedData['kabupaten_name'];
+        $biodata->kecamatan_name = $validatedData['kecamatan_name'];
+        $biodata->desa_name = $validatedData['desa_name'];
+        $biodata->provinsi_name = $validatedData['provinsi_name'];
 
         if ($request->hasFile('gambar')) {
             $now = Carbon::now()->format('d-m-y');
