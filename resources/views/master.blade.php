@@ -28,6 +28,7 @@
     <script src="https://cdn.datatables.net/2.1.6/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.1.6/js/dataTables.bootstrap4.js"></script>
 
+
     {{-- scrip tabledata --}}
     <script>
         new DataTable('#anggotaTable');
