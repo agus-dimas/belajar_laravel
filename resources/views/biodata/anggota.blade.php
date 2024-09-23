@@ -51,6 +51,4 @@
             {{ $biodatas->links() }}
         </div> --}}
     </div>
-
-
 @endsection

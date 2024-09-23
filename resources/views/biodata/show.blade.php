@@ -30,6 +30,7 @@
     </style>
 </head>
 <body class="bg-light">
+    @include('layout.nav')
     <div class="container mt-5">
         <div class="card fade-in shadow-lg">
             <div class="card-body">

@@ -2,22 +2,7 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BELAJAR LARAVEL</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.6/css/dataTables.bootstrap4.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
-
-
-
-    <style>
-        .thead-light-blue {
-            background-color: #cce5ff;
-            color: black;
-        }
-    </style>
-    @yield('styles')
+    @include('layout.style')
 </head>
 
 <body>
@@ -26,6 +11,7 @@
 
     @yield('content')
     @yield('modals')
+
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
@@ -47,6 +33,7 @@
         new DataTable('#anggotaTable');
     </script>
 
+    {{-- modal menu hobi --}}
    <script>
         $(document).ready(function() {
             $('#exampleModal').on('show.bs.modal', function(event) {
@@ -80,5 +67,4 @@
         <p class="text-center text-body-secondary">© 2024 Company, Inc</p>
     </footer>
 </div>
-
 </html>

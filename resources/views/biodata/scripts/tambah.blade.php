@@ -1,18 +1,17 @@
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <script>
-    let biodata = @json($biodata);
-
     function wilayahTemplate(res) {
         return res.text;
     };
 
     $('#provinsi, #kabupaten, #kecamatan, #desa').select2({
-        placeholder: 'Pilih Wilayah',
+        placeholder: 'Pilih ...',
+
     });
 
     $.ajax({
@@ -26,21 +25,22 @@
         });
         $('#provinsi').select2({
             placeholder: "Pilih Provinsi",
-            allowClear: true,
             data: res,
             templateResult: wilayahTemplate
-        });
 
-    }).fail(function() {
-        alert('Gagal memuat provinsi');
+        });
     });
 
     $('#provinsi').on('change', function(e) {
+        e.preventDefault();
         const provinsiId = $(this).val();
         const selectedProvinsiName = $(this).find("option:selected").text();
-        $('#selectedProvinsiName').val(selectedProvinsiName);
+        console.log(selectedProvinsiName);
 
+        $('#selectedProvinsiName').val(selectedProvinsiName);
+        $('#kabupaten').val(null).trigger('change');
         $('#kabupaten').empty();
+
         if (provinsiId) {
             $.ajax({
                 url: `/list-kabupaten/${provinsiId}`
@@ -51,28 +51,26 @@
                         text: obj.name
                     };
                 });
-                res.push({id: null, text: "Pilih Kabupaten"});
-
                 $('#kabupaten').select2({
                     placeholder: "Pilih Kabupaten",
                     data: res,
-                    allowClear: true,
-                }).val(null).trigger('change');
-            }).fail(function() {
-                alert('Gagal memuat kabupaten');
+                });
             });
         }
     });
 
     $('#kabupaten').on('change', function(e) {
+        e.preventDefault();
         const kabupatenId = $(this).val();
         const selectedKabupatenName = $(this).find("option:selected").text();
+        console.log(selectedKabupatenName);
+
         $('#selectedKabupatenName').val(selectedKabupatenName);
-
-        $('#kecamatan').empty();
         $('#kecamatan').val(null).trigger('change');
+        $('#kecamatan').empty();
 
-        if (kabupatenId && kabupatenId != 0) {
+
+        if (kabupatenId) {
             $.ajax({
                 url: `/list-kecamatan/${kabupatenId}`
             }).done(function(data) {
@@ -82,27 +80,25 @@
                         text: obj.name,
                     };
                 });
-                res.push({id: null, text: "Pilih Kecamatan"});
                 $('#kecamatan').select2({
                     placeholder: "Pilih Kecamatan",
                     data: res,
-                    allowClear: true,
-                }).val(null).trigger('change');
-
-            }).fail(function() {
-                alert('Gagal memuat kecamatan');
+                });
             });
         }
     });
 
     $('#kecamatan').on('change', function(e) {
+        e.preventDefault();
         const kecamatanId = $(this).val();
         const selectedKecamatanName = $(this).find("option:selected").text();
-        $('#selectedKecamatanName').val(selectedKecamatanName);
-
-        $('#desa').empty();
+        console.log(selectedKecamatanName);
+        $('#selectedKecamatanName').val(selectedKecamatanName)
         $('#desa').val(null).trigger('change');
-        if (kecamatanId && kecamatanId != 0) {
+        $('#desa').empty();
+
+
+        if (kecamatanId) {
             $.ajax({
                 url: `/list-desa/${kecamatanId}`
             }).done(function(data) {
@@ -112,21 +108,18 @@
                         text: obj.name,
                     };
                 });
-                res.push({id: null, text: "Pilih Desa"});
                 $('#desa').select2({
                     placeholder: "Pilih Desa",
                     data: res,
-                    allowClear: true,
-                }).val(null).trigger('change');
-
-            }).fail(function() {
-                alert('Gagal memuat desa');
+                });
             });
         }
     });
 
     $('#desa').on('change', function(e) {
+        e.preventDefault();
         const selectedDesaName = $(this).find("option:selected").text();
+        console.log('selectedDesaName', selectedDesaName);
         $("#selectedDesaName").val(selectedDesaName);
     });
 </script>
