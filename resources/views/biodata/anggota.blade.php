@@ -5,8 +5,8 @@
         <div class="text-right mb-3">
             <a href="{{ route('biodatas.create') }}" class="btn btn-success">Tambah Data</a>
         </div>
-        <div class="table-responsive ">
-            <table class="table table-hover table-striped table-bordered ">
+        <div>
+            <table id="anggotaTable" class="table table-striped table-bordered table-hover" style="width:100%">
                 <thead class="thead-light-blue">
                     <tr>
                         <th>No.</th>
@@ -22,10 +22,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    
-                    @foreach($biodatas as $biodata)    
+
+                    @foreach($biodatas as $biodata)
                     <tr>
-                            <td>{{ $loop->iteration + $biodatas->firstItem() - 1 }}</td>
+                            <td>{{ $loop->iteration }}</td>
                             <td>{{ $biodata->nik }}</td>
                             <td>{{ $biodata->nama }} </td>
                             <td>{{ $biodata->temp_lahir }}</td>
@@ -37,7 +37,7 @@
                             <td >
                                 <div class="d-flex justify-content-center align-items-center">
                                     <a href="{{ route('biodatas.show', $biodata->id) }}" class="btn btn-primary btn-sm mr-2">Lihat</a>
-                                    
+
                                     <a href="{{ route('biodatas.edit', $biodata->id) }}" class="btn btn-warning btn-sm">Ubah</a>
                                 </div>
                             </td>
@@ -47,8 +47,10 @@
             </table>
         </div>
 
-        <div class="d-flex justify-content-center">
+        {{-- <div class="d-flex justify-content-center">
             {{ $biodatas->links() }}
-        </div>
+        </div> --}}
     </div>
+
+
 @endsection

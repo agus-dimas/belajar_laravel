@@ -18,9 +18,6 @@ class biodataController extends Controller
 {
     public function index(Request $request)
     {
-
-        // $biodatas = Biodata::latest()->paginate(10);
-
         $query = Biodata::query();
 
         if ($request->has('search')) {
@@ -35,7 +32,9 @@ class biodataController extends Controller
               ->orWhere('desa_name', 'LIKE', "%{$search}%");
         }
 
-        $biodatas = $query->paginate(10);
+        $biodatas = Biodata::all();
+
+        // $biodatas = $query->paginate(10);
 
         return view('biodata.anggota', compact ('biodatas'));
     }
@@ -76,7 +75,7 @@ class biodataController extends Controller
             'kecamatan_name' => 'required|string',
             'desa_name' => 'required|string',
             'provinsi_name' => 'required|string',
-           
+
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif',
         ]);
 
@@ -103,7 +102,6 @@ class biodataController extends Controller
             $biodata->gambar = $gambar_path . '/' . $nama_gambar;
         }
 
-        // $biodata->update($validatedData);
         $biodata->save();
 
         return redirect()->route('biodatas.show', $id)->with('success', 'Biodata berhasil diperbarui');
@@ -111,8 +109,6 @@ class biodataController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
-
         $validatedData = $request->validate([
 
             'id_hobi' => 'required|integer',
@@ -153,7 +149,6 @@ class biodataController extends Controller
         $nama_gambar = $gambar->getClientOriginalName();
         $gambar_path = "images/" . $now;
 
-        // Storage::disk('public')->put("images/" . $now .'/'. $nama_gambar, $request->gambar);
         Storage::disk('public')->putFileAs($gambar_path, $request->gambar, $nama_gambar);
         $newBiodata = Biodata::create([
             'nik' => $nik,
